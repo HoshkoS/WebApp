@@ -7,6 +7,8 @@ import AddTaskModal from "./AddTaskModal/addTaskModalComponent";
 import axios from "axios";
 import { Task, tokenConfig } from "../typeDefinition";
 import TaskList from "./TaskList/taskListComponent";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 
 export default function Root() {
   const [userTasks, setUserTask] = useState<Task[] | undefined>();
@@ -40,15 +42,16 @@ export default function Root() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar className="navbar">
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
               <NavLink to="/" className="nav-button">
-                Home
+                Current
               </NavLink>
               <NavLink to="/history" className="nav-button">
-                Previous tasks
+                Finished
               </NavLink>
-            </Box>
-            <NavLink to="/login" className="nav-button" onClick={() => { localStorage.removeItem("jwtToken") }}>Log out</NavLink>
+            <NavLink className="nav-button" to="/login"onClick={() => { localStorage.removeItem("jwtToken") }}>
+              <LogoutIcon sx={{color:'white'}}/>
+            </NavLink>
+
           </Toolbar>
         </AppBar>
         <div className="add-task-container">
