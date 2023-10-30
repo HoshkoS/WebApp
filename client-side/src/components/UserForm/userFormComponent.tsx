@@ -169,9 +169,7 @@ export default function UserForm(props: { formType: userFormType }) {
                         label="Password"
                     />
                 </FormControl>
-                <Button
-                    type='submit'
-                >
+                <Button type='submit'>
                     Submit
                 </Button>
                 <Link className="register-link login-element"

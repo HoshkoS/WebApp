@@ -2,13 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import Root from "./components/Main/mainComponent";
+import ErrorPage from "./error-page";
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store, { persistor } from './stores/userStore';
 import { PersistGate } from 'redux-persist/integration/react';
 import UserForm, { userFormType } from './components/UserForm/userFormComponent';
+import ProtectedWrap from './components/ProtectedWrap/protectedWrapComponent';
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element:
+      <Root />,
+    errorElement: <ErrorPage />,
+  },
   {
     path: "/login",
     element: <UserForm formType={userFormType.login} />,

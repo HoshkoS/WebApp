@@ -16,19 +16,8 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: #ffffff;
 }
-.login-form input,
-.login-form textarea {
-  color: black;
-  font: inherit;
-  padding: 0.25rem;
-  background-color: #f3f3f3;
-  border: 1px solid #8c8c8c;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.678);
-}
-.login-form input {
-  height: 2rem;
-}
+
+
 
 .register-link {
     text-align: center;
