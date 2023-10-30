@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    background-color: #ffffff;
 }
 
 .task-info h1{
     text-align: center;
     padding: 10%;
 }
+
 .navbar {
     background-color: #2e5250;
 }
@@ -23,10 +23,15 @@
 .nav-button:hover {
     background-color: #244240;
 }
-.add-task-container{
-    margin: 30px;
+.add-task-container {
     display: flex;
     justify-content: center;
+}
+.add-task-container button, .add-task-container button:hover{
+    margin: 30px;
+    color: #2e5250;
+    background-color: #d1a504;
+    font-weight: 600;
 }
 .modal-box{
     position: absolute;

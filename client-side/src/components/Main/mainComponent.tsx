@@ -1,16 +1,15 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
-import { AppBar, Backdrop, Box, Button, Fade, Modal, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import "./mainComponentStyle.css";
 import AddTaskModal from "./AddTaskModal/addTaskModalComponent";
 import axios from "axios";
-import { ProcessTask, tokenConfig } from "../types";
+import { Task, tokenConfig } from "../typeDefinition";
 import TaskList from "./TaskList/taskListComponent";
 
 export default function Root() {
-  const navigate = useNavigate();
-  const [userTasks, setUserTask] = useState<ProcessTask[] | undefined>();
+  const [userTasks, setUserTask] = useState<Task[] | undefined>();
   const [token, setToken] = useState<string | null>(localStorage.getItem("jwtToken"));
   const [open, setOpen] = useState<boolean>(false);
 
@@ -21,7 +20,7 @@ export default function Root() {
   const [buttonState, setButtonState] = useState<boolean>(false);
 
   const setNotDoneTasks = async () => {
-    await axios.get<ProcessTask[]>('https://localhost:7269/Process/?done=false', tokenConfig)
+    await axios.get<Task[]>('https://localhost:7269/Process/?done=false', tokenConfig)
       .then(response => {
         setUserTask(response.data);
         console.log(userTasks);
@@ -61,7 +60,6 @@ export default function Root() {
         />
         {userTasks != undefined ?
           <>
-            {<TaskList tasks={userTasks} setNotDoneTasks={setNotDoneTasks} />}
           </>
           : <div className="task-info">
             <h1>You have no active tasks.<br />Let's add them.</h1>
