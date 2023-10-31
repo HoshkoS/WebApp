@@ -14,8 +14,9 @@ import ProtectedWrap from './components/ProtectedWrap/protectedWrapComponent';
 const router = createBrowserRouter([
   {
     path: "/",
-    element:
-      <Root />,
+    element: <ProtectedWrap>
+      <Root />
+    </ProtectedWrap>,
     errorElement: <ErrorPage />,
   },
   {

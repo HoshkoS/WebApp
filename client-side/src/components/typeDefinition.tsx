@@ -3,8 +3,9 @@ export type Task = {
   index: number;
   startDate: Date;
   endDate: Date;
-  Results: number;
-  percentsDone: number;
+  result: number;
+  previousResult: number;
+  percentage: number;
   active: boolean;
 };
 

@@ -1,7 +1,7 @@
-import { Backdrop, Box, Button, Fade, FormControl, FormLabel, Input, Modal, TextField, Typography } from "@mui/material";
+import { Backdrop, Box, Button, Fade, FormControl, FormLabel, Modal, TextField } from "@mui/material";
 import "./addTaskModalComponentStyle.css";
 import { Form } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { tokenConfig } from "../../typeDefinition";
 
@@ -14,7 +14,7 @@ export default function AddTaskModal(props: { open: boolean, setOpen: (a: boolea
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(`https://localhost:7269/Process`, {
+            await axios.post(`https://localhost:7269/Process`, {
                 index: index
             }, tokenConfig);
             props.setOpen(false);

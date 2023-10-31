@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
@@ -18,8 +18,6 @@ export default function Root() {
 
   //const tokenClaims = jwt_decode<{ name: string, family_name: string }>(`${token ? token : ""}`);
 
-
-  const [buttonState, setButtonState] = useState<boolean>(false);
 
   const setNotDoneTasks = async () => {
     await axios.get<Task[]>('https://localhost:7269/Process/?done=false', tokenConfig)
@@ -63,9 +61,11 @@ export default function Root() {
         />
         {userTasks != undefined ?
           <>
+            {<TaskList tasks={userTasks} setNotDoneTasks={setNotDoneTasks} />}
           </>
-          : <div className="task-info">
-            <h1>You have no active tasks.<br />Let's add them.</h1>
+          :
+          <div className="task-info">
+            <h1>You have no active tasks.<br />Please create them.</h1>
           </div>
         }
       </Box>
