@@ -12,15 +12,14 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 export default function Root() {
   const [userTasks, setUserTask] = useState<Task[] | undefined>();
-  const [token, setToken] = useState<string | null>(localStorage.getItem("jwtToken"));
   const [open, setOpen] = useState<boolean>(false);
-
+  const token = localStorage.getItem("jwtToken");
 
   //const tokenClaims = jwt_decode<{ name: string, family_name: string }>(`${token ? token : ""}`);
 
 
   const setNotDoneTasks = async () => {
-    await axios.get<Task[]>('https://localhost:7269/Process/?done=false', tokenConfig)
+    await axios.get<Task[]>('https://localhost:7269/Task/?done=false', tokenConfig)
       .then(response => {
         setUserTask(response.data);
         console.log(userTasks);

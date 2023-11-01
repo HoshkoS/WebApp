@@ -31,7 +31,6 @@ namespace WebServer.Controllers
         public async Task<IActionResult> LoginController([FromBody] UserLoginDto login)
         {
             IActionResult response = Unauthorized();
-            var h = Hashing.getHash(login.Password);
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Password == Hashing.getHash(login.Password) && u.Email == login.Email);
             if (user != null)
             {

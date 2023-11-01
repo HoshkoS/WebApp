@@ -91,9 +91,9 @@ namespace WebServer.Configureation
             });
         }
 
-        public static void ConfigureJobService(IServiceCollection services)
+        public static void ConfigureProcessService(IServiceCollection services)
         {
-            services.AddScoped<IJobService, JobService>();
+            services.AddScoped<IProcessService, ProcessService>();
         }
     }
 }

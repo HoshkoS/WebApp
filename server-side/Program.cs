@@ -20,7 +20,7 @@ namespace WebServer
             Configurations.ConfigureJWTService(builder);
             Configurations.ConfigureSwagger(builder.Services);
             Configurations.ConfigureCORS(builder.Services);
-            Configurations.ConfigureJobService(builder.Services);
+            Configurations.ConfigureProcessService(builder.Services);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
