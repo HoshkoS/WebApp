@@ -4,9 +4,9 @@
     flex-grow: 1;
 }
 
-.task-info h1{
+.task-info{
     text-align: center;
-    padding: 10%;
+    padding: 20px;
 }
 
 .navbar {
@@ -54,4 +54,8 @@
 
 .name-info{
     transform: translateY(-2px);
+}
+
+.task-creation-info {
+
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Root from "./components/Main/mainComponent";
+import Root, { TaskListType } from "./components/Main/mainComponent";
 import ErrorPage from "./error-page";
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import { Provider } from 'react-redux';
@@ -15,9 +15,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <ProtectedWrap>
-      <Root />
+      <Root listType={TaskListType.current}/>
     </ProtectedWrap>,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: "/finished",
+    element: <ProtectedWrap>
+      <Root listType={TaskListType.finished}/>
+    </ProtectedWrap>,
   },
   {
     path: "/login",

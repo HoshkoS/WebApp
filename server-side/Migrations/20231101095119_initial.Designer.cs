@@ -12,7 +12,7 @@ using WebServer.Models;
 namespace WebServer.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20231101090058_initial")]
+    [Migration("20231101095119_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -78,10 +78,10 @@ namespace WebServer.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecondName")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

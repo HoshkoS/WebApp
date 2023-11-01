@@ -48,7 +48,7 @@ namespace WebServer.Controllers
 
         [HttpPost(Name = "CreateProcessTask")]
         [Authorize]
-        public async Task<ActionResult> CreateTaskController(ProcessParams processParams)
+        public async Task<ActionResult> CreateTaskController(TaskParams taskParams)
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
 
@@ -58,7 +58,7 @@ namespace WebServer.Controllers
                 var sender = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
                 ProcessTask activeProcess = new ProcessTask()
                 {
-                    index = processParams.Index,
+                    index = taskParams.Index,
                     percentage = 0,
                     active = false,
                     UserId = userId,

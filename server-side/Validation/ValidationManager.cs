@@ -15,7 +15,7 @@ namespace WebServer.Validation
             {
                 return false;
             }
-            else if (!Regex.IsMatch(user.SecondName, namePattern))
+            else if (!Regex.IsMatch(user.LastName, namePattern))
             {
                 return false;
             }

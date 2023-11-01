@@ -1,6 +1,6 @@
 ﻿namespace WebServer.DTO
 {
-    public class ProcessParams
+    public class TaskParams
     {
         public int? Index { get; set; }
     }

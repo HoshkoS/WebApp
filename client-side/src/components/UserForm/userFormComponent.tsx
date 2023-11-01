@@ -4,8 +4,6 @@ import { Form, Link, useNavigate } from "react-router-dom";
 import { Button, FormControl } from "@mui/base";
 import { Snackbar, TextField } from "@mui/material";
 import axios from "axios";
-// import { setToken } from "../../stores/tokenReducer";
-// import { useAppDispatch, useAppSelector } from "../../stores/userStore";
 
 export enum userFormType {
     login,
@@ -13,19 +11,18 @@ export enum userFormType {
 }
 
 export default function UserForm(props: { formType: userFormType }) {
-    // const token = useAppSelector(state => state.tokens.token);
-    // const dispatch = useAppDispatch();
+
     const navigate = useNavigate();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
-    const [secondName, setSecondName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
     const [open, setOpen] = useState<boolean>(false);
 
     const [emailError, setEmailError] = useState<boolean>(false);
     const [passwordError, setPasswordError] = useState<boolean>(false);
     const [firstNameError, setFirstNameError] = useState<boolean>(false);
-    const [secondNameError, setSecondNameError] = useState<boolean>(false);
+    const [lastNameError, setLastNameError] = useState<boolean>(false);
 
     const nameRegexPatter = new RegExp("^[a-zA-Z0-9]*$");
     const emailRegexPatter = new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
@@ -61,13 +58,13 @@ export default function UserForm(props: { formType: userFormType }) {
         }
     }
 
-    const HandleSecondNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSecondName(e.target.value);
-        if (!nameRegexPatter.test(secondName)) {
-            setSecondNameError(true);
+    const HandleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLastName(e.target.value);
+        if (!nameRegexPatter.test(lastName)) {
+            setLastNameError(true);
         }
         else {
-            setSecondNameError(false)
+            setLastNameError(false)
         }
     }
 
@@ -92,7 +89,7 @@ export default function UserForm(props: { formType: userFormType }) {
         try {
             const response = await axios.post(`https://localhost:7269/Registration`, {
                 firstName: firstName,
-                secondName: secondName,
+                lastName: lastName,
                 email: email,
                 password: password
             });
@@ -131,8 +128,8 @@ export default function UserForm(props: { formType: userFormType }) {
                         </FormControl>
                         <FormControl required className="login-element">
                             <TextField
-                                error={secondNameError}
-                                onChange={HandleSecondNameChange}
+                                error={lastNameError}
+                                onChange={HandleLastNameChange}
                                 required
                                 placeholder=""
                                 className="input-box"

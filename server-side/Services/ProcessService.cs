@@ -34,8 +34,8 @@ namespace WebServer.Services
                         await Task.Delay(5000);
                         int help = _result + _prev_result;
                         _prev_result = _result;
-                        _result = help; 
-                        task.percentage += 100/task.index;
+                        _result = help;
+                        task.percentage += 100 / task.index;
                         task.result = _result;
                         task.previousResult = _prev_result;
                         await _context.SaveChangesAsync();
@@ -51,6 +51,7 @@ namespace WebServer.Services
 
                     await Task.CompletedTask;
                 }
+
             }
         }
     }

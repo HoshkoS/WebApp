@@ -15,8 +15,7 @@ namespace WebServer.Utils
 
             var claims = new List<Claim> {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Name, user.FirstName),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.SecondName)
+                new Claim(JwtRegisteredClaimNames.Name, user.FirstName)
             };
 
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
