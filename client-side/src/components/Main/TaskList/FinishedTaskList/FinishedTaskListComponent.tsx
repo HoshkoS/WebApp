@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import "../mainComponentStyle.css";
 import axios from "axios";
-import { Task, tokenConfig } from "../../typeDefinition";
-import TaskList from "./taskListComponent";
+import { Task, tokenConfig } from "../../../typeDefinition";
+import TaskList from "../taskListComponent";
 import useInterval from "use-interval";
 
 export default function FinishedTaskList() {
   const [userTasks, setUserTasks] = useState<Task[] | undefined>();
-  const [open, setOpen] = useState<boolean>(false);
 
   const setDoneTasks = async () => {
     await axios.get<Task[]>('https://localhost:44367/Task/?done=true', tokenConfig)
@@ -20,10 +19,7 @@ export default function FinishedTaskList() {
 
   useEffect(() => {
     setDoneTasks();
-  }, [open]);
-
-  useEffect(() => {
-  }, [userTasks]);
+  });
 
   useInterval(() => {
     setDoneTasks();

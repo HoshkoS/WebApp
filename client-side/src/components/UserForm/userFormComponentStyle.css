@@ -23,9 +23,7 @@
     color:#d1a504;
     text-decoration: none;
 }
-.hide {
-    display: none;
-}
+
 .login-element {
     margin: 5px;
     display: flex;

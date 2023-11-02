@@ -16,7 +16,7 @@ namespace WebServer.Controllers
         private readonly ApiDbContext _context;
         private readonly IConfiguration _config;
         private IProcessService _processService;
-        private static CancellationTokenSource cts ;
+        private static Dictionary<long?,CancellationTokenSource> cts = new Dictionary<long?, CancellationTokenSource>();
         public TaskStatusController(ILogger<AuthenticationController> logger, ApiDbContext context, IConfiguration config, IProcessService processService)
         {
             _logger = logger;
@@ -59,15 +59,17 @@ namespace WebServer.Controllers
         [HttpPost(Name = "StartTask")]
         public async Task StartTaskController(StartTaskParams taskParams)
         {
-            cts = new CancellationTokenSource();
+            cts[taskParams.TaskId] = new CancellationTokenSource();
             Console.WriteLine("StartTaskController");
-            await _processService.StartProcess(taskParams.TaskId, cts.Token);
+            await _processService.StartProcess(taskParams.TaskId, cts[taskParams.TaskId].Token);
         }
         [AllowAnonymous]
         [HttpPut(Name = "StopTask")]
-        public async void StopTaskController()
+        public async void StopTaskController(StartTaskParams taskParams)
         {
-           cts.Cancel();
+            cts[taskParams.TaskId].Cancel();
+            cts[taskParams.TaskId].Dispose();
+            cts.Remove(taskParams.TaskId);
         }
     }
 }

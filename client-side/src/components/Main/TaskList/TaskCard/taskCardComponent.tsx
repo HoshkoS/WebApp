@@ -7,21 +7,19 @@ import ProgressBar from "../ProgressBar/progressBarComponent";
 import useInterval from "use-interval";
 
 export default function TaskCard(props: { task: Task }) {
-    const [cancelToken, SetCancelToken] = useState<any>();
     const [shortPool, setShortPool] = useState<boolean>(false);
     const [progressValue, setProgressValue] = useState<Task>();
 
     const HandleStart = (id: number) => {
         axios.post(`https://localhost:44367/TaskStatus/`, { taskId: id }, tokenConfig)
             .then(res => {
-                SetCancelToken(res.data);
                 console.log(res.data);
             })
             .catch(e => console.log(e));
     }
 
     const HandleStop = (id: number) => {
-        axios.put(`https://localhost:44367/TaskStatus/`, tokenConfig)
+        axios.put(`https://localhost:44367/TaskStatus/`, { taskId: id }, tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -32,7 +30,7 @@ export default function TaskCard(props: { task: Task }) {
             const response = await axios.get<Task>(`https://localhost:44367/TaskStatus/${props.task.id}`, tokenConfig);
             const taskProgressData = response.data;
             console.log(taskProgressData)
-            taskProgressData != undefined ? setShortPool(true) : setShortPool(false);
+            taskProgressData != undefined && taskProgressData.active ? setShortPool(true) : setShortPool(false);
             setProgressValue(taskProgressData);
         } catch (error) {
             console.log(error);
@@ -71,7 +69,8 @@ export default function TaskCard(props: { task: Task }) {
                 </div>: ""} </>:
                 <div className="start">
                     {props.task.active ?
-                    <><ProgressBar value={progressValue == undefined? 0: progressValue?.percentage} /><Button onClick={ () => { HandleStop(props.task.id); }}>Stop</Button></>
+                    <><ProgressBar value={progressValue == undefined? 0: progressValue?.percentage} />
+                    <Button onClick={ () => { HandleStop(props.task.id); }}>Stop</Button></>
                     :
                     <Button onClick={ () => { HandleStart(props.task.id); }}>Start</Button>}
                 </div>}

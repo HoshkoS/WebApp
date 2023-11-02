@@ -22,11 +22,6 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.start, .start div {
-    display: flex;
-    justify-content: space-around;
-}
-
 .options-wrap {
     padding: 20px;
     display: flex;
@@ -64,6 +59,10 @@
     visibility: visible;
 }
 
+.start, .start div {
+    display: flex;
+    justify-content: space-around;
+}
 
 .start button {
     background-color: #d1a504;
@@ -74,7 +73,7 @@
 }
 
 .start button:hover {
-    background-color: #d1a504;
+    background-color: #fff;
     color: #2e5250;
     box-shadow: 0 0px 1px hsla(0, 0%, 0%, 0.6), 0 1px 2px hsla(0, 0%, 0%, 0.2);
 }

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import "../mainComponentStyle.css";
-import AddTaskModal from "../AddTaskModal/addTaskModalComponent";
+import AddTaskModal from "../../AddTaskModal/addTaskModalComponent";
 import axios from "axios";
-import { Task, tokenConfig } from "../../typeDefinition";
-import TaskList from "./taskListComponent";
+import { Task, tokenConfig } from "../../../typeDefinition";
+import TaskList from "../taskListComponent";
 import useInterval from "use-interval";
 
 export default function CurrentTaskList() {
@@ -19,17 +19,13 @@ export default function CurrentTaskList() {
       })
       .catch(error => console.error(error));
   }
-
   useEffect(() => {
     setNotDoneTasks();
-  }, [open]);
+  });
 
   useInterval(() => {
     setNotDoneTasks();
   }, 2000);
-
-  useEffect(() => {
-  }, [userTasks]);
 
   return (<>
     {userTasks != undefined && userTasks?.length < 10 ?
