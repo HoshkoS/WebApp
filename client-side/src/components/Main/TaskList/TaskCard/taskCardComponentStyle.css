@@ -6,13 +6,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-items:center;
+    justify-content: space-between;
 }
 
 .task-card {
     background-color: white;
     justify-content: space-between;
     font-size: 30px;
-    margin: 30px 50px;
+    margin: 30px;
     display: flex;
     flex-wrap: wrap;
 

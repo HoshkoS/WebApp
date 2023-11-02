@@ -2,6 +2,6 @@
 {
     public class StartTaskParams
     {
-        public long? taskId { get; set; }
+        public long? TaskId { get; set; }
     }
 }

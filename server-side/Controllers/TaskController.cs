@@ -34,11 +34,11 @@ namespace WebServer.Controllers
                 {
                     if (done == true)
                     {
-                        response = response.Where(e => e.percentage == 100).ToList();
+                        response = response.Where(e => e.percentage > 0 && e.active == false).ToList();
                     }
                     else
                     {
-                        response = response.Where(e => e.percentage != 100).ToList();
+                        response = response.Where(e => e.percentage == 0 || e.active == true).ToList();
                     }
                 }
                 return Ok(response);

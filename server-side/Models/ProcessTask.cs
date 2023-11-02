@@ -9,7 +9,7 @@ namespace WebServer.Models
         public DateTime? startDate { get; set; }
         public DateTime? endDate { get; set; }
         public int? index { get; set; }
-        public long? percentage { get; set; }
+        public double? percentage { get; set; }
         public bool? active { get; set; }
         public long previousResult { get; set; }
         public long? result { get; set;}

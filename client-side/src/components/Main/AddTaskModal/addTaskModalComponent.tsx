@@ -14,7 +14,7 @@ export default function AddTaskModal(props: { open: boolean, setOpen: (a: boolea
 
     const handleSubmit = async () => {
         try {
-            await axios.post(`https://localhost:7269/Task`, {
+            await axios.post(`https://localhost:44367/Task`, {
                 index: index
             }, tokenConfig);
             props.setOpen(false);

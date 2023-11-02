@@ -15,8 +15,8 @@ namespace WebServer.Controllers
         private readonly ILogger<AuthenticationController> _logger;
         private readonly ApiDbContext _context;
         private readonly IConfiguration _config;
-        private readonly IProcessService _processService;
-
+        private IProcessService _processService;
+        private static CancellationTokenSource cts ;
         public TaskStatusController(ILogger<AuthenticationController> logger, ApiDbContext context, IConfiguration config, IProcessService processService)
         {
             _logger = logger;
@@ -57,11 +57,17 @@ namespace WebServer.Controllers
 
         [AllowAnonymous]
         [HttpPost(Name = "StartTask")]
-        public async Task<IActionResult> StartTaskController(StartTaskParams taskParams)
+        public async Task StartTaskController(StartTaskParams taskParams)
         {
+            cts = new CancellationTokenSource();
             Console.WriteLine("StartTaskController");
-            await _processService.StartProcess(taskParams.taskId);
-            return Ok("job started.");
+            await _processService.StartProcess(taskParams.TaskId, cts.Token);
+        }
+        [AllowAnonymous]
+        [HttpPut(Name = "StopTask")]
+        public async void StopTaskController()
+        {
+           cts.Cancel();
         }
     }
 }

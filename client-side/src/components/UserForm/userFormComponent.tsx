@@ -70,7 +70,7 @@ export default function UserForm(props: { formType: userFormType }) {
 
     const handleLoginSubmit = async () => {
         try {
-            const response = await axios.post(`https://localhost:7269/Authentication`, {
+            const response = await axios.post(`https://localhost:44367/Authentication`, {
                 email: email,
                 password: password
             });

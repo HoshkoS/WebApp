@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import TaskCard from "./TaskCard/taskCardComponent";
 import useInterval from "use-interval";
 
-export default function TaskList(props: { tasks: Task[], setNotDoneTasks: () => void }) {
+export default function TaskList(props: Readonly<{ tasks: Task[] }>) {
     const [shortPool, setShortPool] = useState<boolean>(false);
     const [tasksProgress, setTasksProgress] = useState<Task[]>([]);
 
     const GetActiveProgress = async () => {
         try{
-            const response = await axios.get<Task[]>(`https://localhost:7269/TaskStatus/`, tokenConfig);
+            const response = await axios.get<Task[]>(`https://localhost:44367/TaskStatus/`, tokenConfig);
             const taskProgressData = response.data;
             console.log(taskProgressData)
             taskProgressData.length > 0? setShortPool(true) : setShortPool(false);
@@ -22,11 +22,16 @@ export default function TaskList(props: { tasks: Task[], setNotDoneTasks: () => 
 
     useEffect(() => {
         GetActiveProgress();
+        tasksProgress.forEach(element => {
+            if (element.percentage >= 100) {
+                const updatedTasksProgress = tasksProgress.filter(task => task.percentage <= 100);
+                setTasksProgress(updatedTasksProgress);
+            }
+        });
     }, []);
 
     useInterval(async () => {
         await GetActiveProgress();
-        console.log("short pool");
     }, shortPool ? 2000 : null);
 
 
@@ -38,7 +43,7 @@ export default function TaskList(props: { tasks: Task[], setNotDoneTasks: () => 
     return (
         <div className="task-card-wrap">
             {props.tasks.map(i =>
-                <TaskCard task={i} progressValue={findTaskProgressById(i.id)} />)}
+                <TaskCard task={i} key={i.id}/>)}
         </div>
     )
 }
