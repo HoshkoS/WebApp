@@ -61,10 +61,17 @@ export default function TaskCard(props: { task: Task }) {
                     <span className="tip-text">This result is not final. For final result please click on Finished link and wait a bit.</span>
                 : ""}</div>
 
-                {props.task.percentage > 0 && !props.task.active ? <><div>Percentage: {(props.task.percentage > 100 ? 100: props.task.percentage)}</div>{props.task.percentage < 100 ? <div className="start"><Button onClick={ () => { HandleStart(props.task.id); }}>Continue</Button></div>: ""} </>:
+                {props.task.percentage > 0 && !props.task.active ?
+                <>
+                <div>Percentage: {props.task.percentage > 100 ? 100: Number((props.task.percentage).toFixed(1))}
+                </div>
+                {props.task.percentage < 100 ?
+                <div className="start">
+                    <Button onClick={ () => { HandleStart(props.task.id); }}>Continue</Button>
+                </div>: ""} </>:
                 <div className="start">
                     {props.task.active ?
-                    <div><ProgressBar value={progressValue == undefined? 0: progressValue?.percentage} /><Button onClick={ () => { HandleStop(props.task.id); }}>Stop</Button></div>
+                    <><ProgressBar value={progressValue == undefined? 0: progressValue?.percentage} /><Button onClick={ () => { HandleStop(props.task.id); }}>Stop</Button></>
                     :
                     <Button onClick={ () => { HandleStart(props.task.id); }}>Start</Button>}
                 </div>}
