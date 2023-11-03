@@ -35,6 +35,8 @@ const router = createBrowserRouter([
   }
 ]);
 
+export const URL = "http://localhost:80";
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

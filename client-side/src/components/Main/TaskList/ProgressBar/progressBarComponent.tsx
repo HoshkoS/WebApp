@@ -5,12 +5,12 @@ export default function ProgressBar(
   ) {
     return (
       <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-        <CircularProgress sx={{color:'white'}} variant="determinate" {...props} />
+        <CircularProgress sx={{color:'white'}} {...props} />
         <Box
           sx={{
             top: 0,
             left: 0,
-            bottom: 0,
+            bottom:5,
             right: 0,
             position: 'absolute',
             display: 'flex',

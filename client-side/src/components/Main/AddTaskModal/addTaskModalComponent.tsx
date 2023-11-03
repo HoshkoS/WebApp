@@ -4,6 +4,7 @@ import { Form } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { tokenConfig } from "../../typeDefinition";
+import { URL } from "../../../index";
 
 export default function AddTaskModal(props: { open: boolean, setOpen: (a: boolean) => void }) {
     const [index, setIndex] = useState<number>(1);
@@ -14,7 +15,7 @@ export default function AddTaskModal(props: { open: boolean, setOpen: (a: boolea
 
     const handleSubmit = async () => {
         try {
-            await axios.post(`https://localhost:44367/Task`, {
+            await axios.post(`${URL}/Task/`, {
                 index: index
             }, tokenConfig);
             props.setOpen(false);

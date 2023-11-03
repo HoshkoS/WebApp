@@ -30,15 +30,15 @@ namespace WebServer.Controllers
             {
                 var userId = long.Parse(claimsIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value);
                 var response = _context.ProcessTasks.Where(e => e.UserId == userId).ToList();
-                if (done != null && response != null) 
+                if (done != null && response != null)
                 {
                     if (done == true)
                     {
-                        response = response.Where(e => e.percentage > 0 && e.active == false).ToList();
+                        response = response.Where(e => e.percentage == 100).ToList();
                     }
                     else
                     {
-                        response = response.Where(e => e.percentage == 0 || e.active == true).ToList();
+                        response = response.Where(e => e.percentage < 100).ToList();
                     }
                 }
                 return Ok(response);

@@ -3,15 +3,17 @@ import { Task, tokenConfig } from "../../../typeDefinition";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./taskCardComponentStyle.css";
-import ProgressBar from "../ProgressBar/progressBarComponent";
+import TaskProgressBar from "../ProgressBar/progressBarComponent";
 import useInterval from "use-interval";
+
+import { URL } from "../../../../index";
 
 export default function TaskCard(props: { task: Task }) {
     const [shortPool, setShortPool] = useState<boolean>(false);
     const [progressValue, setProgressValue] = useState<Task>();
 
     const HandleStart = (id: number) => {
-        axios.post(`https://localhost:44367/TaskStatus/`, { taskId: id }, tokenConfig)
+        axios.post(`${URL}/TaskStatus/`, { taskId: id }, tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -19,7 +21,7 @@ export default function TaskCard(props: { task: Task }) {
     }
 
     const HandleStop = (id: number) => {
-        axios.put(`https://localhost:44367/TaskStatus/`, { taskId: id }, tokenConfig)
+        axios.put(`${URL}/TaskStatus/`, { taskId: id }, tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -27,10 +29,10 @@ export default function TaskCard(props: { task: Task }) {
     }
     const GetActiveProgress = async () => {
         try{
-            const response = await axios.get<Task>(`https://localhost:44367/TaskStatus/${props.task.id}`, tokenConfig);
+            const response = await axios.get<Task>(`${URL}/TaskStatus/${props.task.id}`, tokenConfig);
             const taskProgressData = response.data;
             console.log(taskProgressData)
-            taskProgressData != undefined && taskProgressData.active ? setShortPool(true) : setShortPool(false);
+            taskProgressData != undefined ? setShortPool(true) : setShortPool(false);
             setProgressValue(taskProgressData);
         } catch (error) {
             console.log(error);
@@ -44,8 +46,8 @@ export default function TaskCard(props: { task: Task }) {
             }
     }, []);
 
-    useInterval(async () => {
-        await GetActiveProgress();
+    useInterval(() => {
+        GetActiveProgress();
     }, shortPool ? 2000 : null);
 
     return (
@@ -69,7 +71,7 @@ export default function TaskCard(props: { task: Task }) {
                 </div>: ""} </>:
                 <div className="start">
                     {props.task.active ?
-                    <><ProgressBar value={progressValue == undefined? 0: progressValue?.percentage} />
+                    <><TaskProgressBar value={progressValue == undefined? 0: progressValue?.percentage} />
                     <Button onClick={ () => { HandleStop(props.task.id); }}>Stop</Button></>
                     :
                     <Button onClick={ () => { HandleStart(props.task.id); }}>Start</Button>}

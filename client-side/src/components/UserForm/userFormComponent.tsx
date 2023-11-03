@@ -4,6 +4,7 @@ import { Form, Link, useNavigate } from "react-router-dom";
 import { Button, FormControl } from "@mui/base";
 import { Snackbar, TextField } from "@mui/material";
 import axios from "axios";
+import { URL } from "../../index";
 
 export enum userFormType {
     login,
@@ -70,7 +71,7 @@ export default function UserForm(props: { formType: userFormType }) {
 
     const handleLoginSubmit = async () => {
         try {
-            const response = await axios.post(`https://localhost:44367/Authentication`, {
+            const response = await axios.post(`${URL}/Authentication`, {
                 email: email,
                 password: password
             });
@@ -87,7 +88,7 @@ export default function UserForm(props: { formType: userFormType }) {
 
     const handleRegisterSubmit = async () => {
         try {
-            const response = await axios.post(`https://localhost:7269/Registration`, {
+            const response = await axios.post(`${URL}/Registration`, {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,

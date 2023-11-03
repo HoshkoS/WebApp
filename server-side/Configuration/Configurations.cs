@@ -85,7 +85,7 @@ namespace WebServer.Configureation
                 options.AddDefaultPolicy(builder =>
                 {
                     builder
-                        .WithOrigins("http://localhost:3000")
+                        .AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
