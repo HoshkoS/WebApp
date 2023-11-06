@@ -49,6 +49,11 @@ export default function AddTaskModal(props: { open: boolean, setOpen: (a: boolea
                                 size="small"
                                 id="outlined-error"
                                 label="1...10"
+                                type="number"
+                                inputProps={{
+                                    min: 1,
+                                    max: 50,
+                                }}
                                 autoComplete="off"
                                 sx={{marginBottom:'10px'}}
                                 onChange={HandleIndexChange}

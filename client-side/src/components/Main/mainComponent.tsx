@@ -3,8 +3,8 @@ import jwt_decode from "jwt-decode";
 import { AppBar, Box, Toolbar } from "@mui/material";
 import "./mainComponentStyle.css";
 import LogoutIcon from "@mui/icons-material/Logout";
-import CurrentTaskList from "./TaskList/CurrentTaskList/CurrentTaskListComponent";
-import FinishedTaskList from "./TaskList/FinishedTaskList/FinishedTaskListComponent";
+import CurrentTaskList from "./TaskList/CurrentTaskList/currentTaskListComponent";
+import FinishedTaskList from "./TaskList/FinishedTaskList/finishedTaskListComponent";
 
 export enum TaskListType {
   current,

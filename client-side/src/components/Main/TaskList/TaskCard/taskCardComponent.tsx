@@ -13,7 +13,7 @@ export default function TaskCard(props: { task: Task }) {
     const [progressValue, setProgressValue] = useState<Task>();
 
     const HandleStart = (id: number) => {
-        axios.post(`${URL}/TaskStatus/`, { taskId: id }, tokenConfig)
+        axios.put(`${URL}/Task/`,{ taskId: id }, tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -21,7 +21,7 @@ export default function TaskCard(props: { task: Task }) {
     }
 
     const HandleStop = (id: number) => {
-        axios.put(`${URL}/TaskStatus/`, { taskId: id }, tokenConfig)
+        axios.patch(`${URL}/Task/StopTask/${id}`, { id: id } ,  tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -29,7 +29,7 @@ export default function TaskCard(props: { task: Task }) {
     }
     const GetActiveProgress = async () => {
         try{
-            const response = await axios.get<Task>(`${URL}/TaskStatus/${props.task.id}`, tokenConfig);
+            const response = await axios.get<Task>(`${URL}/Task/${props.task.id}`, tokenConfig);
             const taskProgressData = response.data;
             console.log(taskProgressData)
             taskProgressData != undefined ? setShortPool(true) : setShortPool(false);
