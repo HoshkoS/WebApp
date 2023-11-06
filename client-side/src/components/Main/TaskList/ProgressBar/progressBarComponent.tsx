@@ -1,6 +1,6 @@
 import { Box, CircularProgress, CircularProgressProps, Typography } from "@mui/material";
 
-export default function ProgressBar(
+export default function TaskProgressBar(
     props: CircularProgressProps & { value: number | undefined },
   ) {
     return (

@@ -23,7 +23,7 @@ export default function FinishedTaskList() {
 
   useInterval(() => {
     setDoneTasks();
-  }, 4000);
+  }, 5000);
 
 
   return (<>

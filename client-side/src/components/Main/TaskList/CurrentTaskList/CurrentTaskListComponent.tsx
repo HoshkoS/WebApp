@@ -24,7 +24,7 @@ export default function CurrentTaskList() {
   }, []);
   useInterval(() => {
     setNotDoneTasks();
-  }, 4000);
+  }, 5000);
 
   return (<>
     {userTasks != undefined && userTasks?.length < 10 ?
