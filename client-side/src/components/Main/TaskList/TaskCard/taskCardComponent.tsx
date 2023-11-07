@@ -41,7 +41,7 @@ export default function TaskCard(props: { task: Task }) {
             const response = await axios.get<Task>(`${URL}/Task/${props.task.id}`, tokenConfig);
             const taskProgressData = response.data;
             console.log(taskProgressData)
-            taskProgressData != undefined ? setShortPool(true) : setShortPool(false);
+            taskProgressData != undefined && taskProgressData.percentage != 100 ? setShortPool(true) : setShortPool(false);
             setProgressValue(taskProgressData);
         } catch (error) {
             console.log(error);
@@ -72,12 +72,12 @@ export default function TaskCard(props: { task: Task }) {
                 {props.task.percentage > 0 && !props.task.active ?
                 <>
                     <div>Percentage: {props.task.percentage > 100 ? 100: Number((props.task.percentage).toFixed(1))}</div>
-                    {props.task.percentage < 100 &&
-                        <div className="start">
+                    <div className="start">
+                        {props.task.percentage < 100 &&
                             <Button onClick={ () => { HandleStart(props.task.id); }}>Continue</Button>
-                            <Button onClick={ () => { HandleDelete(props.task.id); }}>Delete</Button>
-                        </div>
                     }
+                    <Button onClick={ () => { HandleDelete(props.task.id); }}>Delete</Button>
+                    </div>
                 </>:
                 <div className="start">
                     {props.task.active ?
