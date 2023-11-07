@@ -5,9 +5,6 @@ import reportWebVitals from './reportWebVitals';
 import Root, { TaskListType } from "./components/Main/mainComponent";
 import ErrorPage from "./error-page";
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
-import { Provider } from 'react-redux';
-import store, { persistor } from './stores/userStore';
-import { PersistGate } from 'redux-persist/integration/react';
 import UserForm, { userFormType } from './components/UserForm/userFormComponent';
 import ProtectedWrap from './components/ProtectedWrap/protectedWrapComponent';
 
@@ -35,18 +32,14 @@ const router = createBrowserRouter([
   }
 ]);
 
-export const URL = "http://localhost:4001";
+export const URL = "https://localhost:443";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
+    <RouterProvider router={router} />
   </React.StrictMode >
 );
 
