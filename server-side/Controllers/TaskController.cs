@@ -7,6 +7,7 @@ using WebServer.DTO;
 using WebServer.Models;
 using WebServer.Services;
 using Hangfire;
+using System.Net.Http.Headers;
 
 
 namespace WebServer.Controllers
@@ -59,44 +60,48 @@ namespace WebServer.Controllers
 
             var i = BackgroundJob.Enqueue(() => _processService.StartProcess(taskParams.TaskId, cts[taskParams.TaskId].Token));
 
-            return Ok("Task started");
+            return Ok(i);
         }
 
         [Authorize]
-        [HttpPatch("StopTask/{id}", Name = "StopTask")]
+        [HttpPatch("StopTask/", Name = "StopTask")]
         public async Task<ActionResult> StopTaskController(long? id)
         {
-            var origin = HttpContext.Request.Headers["Origin"];
+           var origin = HttpContext.Request.Headers["Origin"];
 
-            if (cts.ContainsKey(id))
-            {
-                cts[id].Cancel();
-                cts[id].Dispose();
-                cts.Remove(id);
-                return Ok();
-            }
-            else if (origin == "https://localhost:4001")
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    try
-                    {
-                        string apiUrl = $"https://localhost:7268/Task/StopTask/";
-                        var content = new StringContent(id.ToString());
-
-                        await client.PatchAsync(apiUrl, content);
-                        return Ok();
-                    }
-                    catch (HttpRequestException ex)
-                    {
-                        return BadRequest();
-                    }
-                }
-            }
-            else
-            {
-                return BadRequest();
-            }
+           if (cts.ContainsKey(id))
+           {
+               cts[id].Cancel();
+               cts[id].Dispose();
+               cts.Remove(id);
+               return Ok("Task removed");
+           }
+           else if (origin == "https://localhost:3000")
+           {
+               using (HttpClient client = new HttpClient())
+               {
+                   client.Timeout = TimeSpan.FromSeconds(10);
+                   try
+                   {
+                       string apiUrl = $"https://localhost:7268/Task/StopTask/{id}";
+                       var content = new StringContent("");
+                       if (HttpContext.Request.Headers.TryGetValue("Authorization", out var authorizationHeaderValue))
+                       {
+                           client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(authorizationHeaderValue);
+                       }
+                       await client.PatchAsync(apiUrl, content);
+                       return Ok();
+                   }
+                   catch (HttpRequestException ex)
+                   {
+                       return BadRequest();
+                   }
+               }
+           }
+           else
+           {
+               return BadRequest();
+           }
         }
 
         [Authorize]
