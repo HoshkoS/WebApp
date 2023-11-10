@@ -7,7 +7,7 @@ using WebServer.Models;
 using WebServer.Services;
 using System.Diagnostics;
 
-namespace WebServer.Configureation
+namespace WebServer.Configuration
 {
     public static class Configurations
     {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using WebServer.Configureation;
+using WebServer.Configuration;
 using WebServer.Models;
 
 namespace WebServer
