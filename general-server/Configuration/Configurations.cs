@@ -14,7 +14,7 @@ namespace WebServer.Configureation
         public static void ConfigureDB(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<ApiDbContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")), ServiceLifetime.Scoped);
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
         }
 
         public static void ConfigureJWTService(WebApplicationBuilder builder)

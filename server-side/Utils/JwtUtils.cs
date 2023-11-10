@@ -6,7 +6,7 @@ using WebServer.Models;
 
 namespace WebServer.Utils
 {
-    public static class JwyUtils
+    public static class JwtUtils
     {
         public static string GenerateJSONWebToken(IConfiguration config, User user)
         {

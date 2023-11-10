@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "WebServer.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer2", "..\server-side2\WebServer2.csproj", "{80EAE423-DE04-48D9-B8AC-A8AE37AE3E6F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer3", "..\general-server\WebServer3.csproj", "{16119107-AF08-46CC-9EDC-D41A2BD0EC7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{80EAE423-DE04-48D9-B8AC-A8AE37AE3E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80EAE423-DE04-48D9-B8AC-A8AE37AE3E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80EAE423-DE04-48D9-B8AC-A8AE37AE3E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16119107-AF08-46CC-9EDC-D41A2BD0EC7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16119107-AF08-46CC-9EDC-D41A2BD0EC7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16119107-AF08-46CC-9EDC-D41A2BD0EC7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16119107-AF08-46CC-9EDC-D41A2BD0EC7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -38,7 +38,7 @@ namespace WebServer.Controllers
                 user.Password = Hashing.getHash(user.Password);
                 await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
-                var tokenString = JwyUtils.GenerateJSONWebToken(_config, user);
+                var tokenString = JwtUtils.GenerateJSONWebToken(_config, user);
                 return Ok(new { token = tokenString });
             }
             return BadRequest("User validation error.");

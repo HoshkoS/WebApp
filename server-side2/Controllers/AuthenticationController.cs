@@ -34,7 +34,7 @@ namespace WebServer.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Password == Hashing.getHash(login.Password) && u.Email == login.Email);
             if (user != null)
             {
-                var tokenString = JwyUtils.GenerateJSONWebToken(_config, user);
+                var tokenString = JwtUtils.GenerateJSONWebToken(_config, user);
                 response = Ok(new { token = tokenString });
             }
             return response;
