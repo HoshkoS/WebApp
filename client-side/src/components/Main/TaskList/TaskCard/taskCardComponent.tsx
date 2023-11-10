@@ -73,9 +73,7 @@ export default function TaskCard(props: { task: Task }) {
                 <>
                     <div>Percentage: {props.task.percentage > 100 ? 100: Number((props.task.percentage).toFixed(1))}</div>
                     <div className="start">
-                        {props.task.percentage < 100 &&
-                            <Button onClick={ () => { HandleStart(props.task.id); }}>Continue</Button>
-                    }
+
                     <Button onClick={ () => { HandleDelete(props.task.id); }}>Delete</Button>
                     </div>
                 </>:
