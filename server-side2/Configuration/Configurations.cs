@@ -6,15 +6,16 @@ using System.Text;
 using WebServer.Models;
 using WebServer.Services;
 using System.Diagnostics;
+using Hangfire;
 
 namespace WebServer.Configuration
 {
-    public static class Configurations
+    public static class Configurations1
     {
         public static void ConfigureDB(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<ApiDbContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")), ServiceLifetime.Scoped);
         }
 
         public static void ConfigureJWTService(WebApplicationBuilder builder)
@@ -91,7 +92,11 @@ namespace WebServer.Configuration
                 });
             });
         }
-
+        public static void ConfigureHangfire(IServiceCollection services)
+        {
+            services.AddHangfire(configuration => configuration
+                .UseSqlServerStorage("Server=LAPTOP-EBEMKK8G\\SQLEXPRESS;Database=WebApp;Trusted_Connection=True;TrustServerCertificate=True"));
+        }
         public static void ConfigureProcessService(IServiceCollection services)
         {
             services.AddScoped<IProcessService, ProcessService>();

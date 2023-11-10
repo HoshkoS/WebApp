@@ -6,7 +6,7 @@ using System.Security.Claims;
 using WebServer.DTO;
 using WebServer.Models;
 using WebServer.Services;
-using Hangfire;
+
 
 namespace WebServer.Controllers
 {
@@ -56,7 +56,7 @@ namespace WebServer.Controllers
         {
             cts[taskParams.TaskId] = new CancellationTokenSource();
 
-            var i = BackgroundJob.Enqueue(() => _processService.StartProcess(taskParams.TaskId, cts[taskParams.TaskId].Token));
+            await _processService.StartProcess(taskParams.TaskId, cts[taskParams.TaskId].Token);
 
             return Ok("Task started");
         }

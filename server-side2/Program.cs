@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebServer.Configuration;
 using WebServer.Models;
+using Hangfire;
 
 namespace WebServer
 {
@@ -16,11 +17,12 @@ namespace WebServer
 
             builder.Services.AddControllers();
 
-            Configurations.ConfigureDB(builder);
-            Configurations.ConfigureJWTService(builder);
-            Configurations.ConfigureSwagger(builder.Services);
-            Configurations.ConfigureCORS(builder.Services);
-            Configurations.ConfigureProcessService(builder.Services);
+            Configurations1.ConfigureDB(builder);
+            Configurations1.ConfigureJWTService(builder);
+            Configurations1.ConfigureSwagger(builder.Services);
+            Configurations1.ConfigureCORS(builder.Services);
+            Configurations1.ConfigureProcessService(builder.Services);
+            Configurations1.ConfigureHangfire(builder.Services);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,10 +37,11 @@ namespace WebServer
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseHangfireServer();
 
             app.UseHttpsRedirection();
 
-            Configurations.ConfigureJWT(app);
+            Configurations1.ConfigureJWT(app);
 
             app.UseCors();
 

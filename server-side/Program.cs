@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using WebServer.Configuration;
 using WebServer.Models;
+using Hangfire;
 
 namespace WebServer
 {
@@ -21,6 +22,7 @@ namespace WebServer
             Configurations.ConfigureSwagger(builder.Services);
             Configurations.ConfigureCORS(builder.Services);
             Configurations.ConfigureProcessService(builder.Services);
+            Configurations.ConfigureHangfire(builder.Services);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,6 +37,7 @@ namespace WebServer
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseHangfireServer();
 
             app.UseHttpsRedirection();
 

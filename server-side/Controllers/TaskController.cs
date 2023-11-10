@@ -6,6 +6,7 @@ using System.Security.Claims;
 using WebServer.DTO;
 using WebServer.Models;
 using WebServer.Services;
+using Hangfire;
 
 
 namespace WebServer.Controllers
@@ -52,16 +53,21 @@ namespace WebServer.Controllers
         }
         [Authorize]
         [HttpPut(Name = "StartTask")]
-        public async Task StartTaskController(StartTaskParams taskParams)
+        public async Task<IActionResult> StartTaskController(StartTaskParams taskParams)
         {
             cts[taskParams.TaskId] = new CancellationTokenSource();
-            await _processService.StartProcess(taskParams.TaskId, cts[taskParams.TaskId].Token);
+
+            var i = BackgroundJob.Enqueue(() => _processService.StartProcess(taskParams.TaskId, cts[taskParams.TaskId].Token));
+
+            return Ok("Task started");
         }
 
         [Authorize]
         [HttpPatch("StopTask/{id}", Name = "StopTask")]
         public async Task<ActionResult> StopTaskController(long? id)
         {
+            var origin = HttpContext.Request.Headers["Origin"];
+
             if (cts.ContainsKey(id))
             {
                 cts[id].Cancel();
@@ -69,25 +75,27 @@ namespace WebServer.Controllers
                 cts.Remove(id);
                 return Ok();
             }
-            else
+            else if (origin == "https://localhost:4001")
             {
                 using (HttpClient client = new HttpClient())
                 {
                     try
                     {
-                        string apiUrl = $"https://localhost:7268/Task/StopTask/{id}";
+                        string apiUrl = $"https://localhost:7268/Task/StopTask/";
                         var content = new StringContent(id.ToString());
 
-                        // Send a PATCH request
                         await client.PatchAsync(apiUrl, content);
                         return Ok();
                     }
                     catch (HttpRequestException ex)
                     {
-                        // Handle any exceptions that may occur during the request.
                         return BadRequest();
                     }
                 }
+            }
+            else
+            {
+                return BadRequest();
             }
         }
 
@@ -122,7 +130,7 @@ namespace WebServer.Controllers
                     User = sender
                 };
                 await _context.ProcessTasks.AddAsync(activeProcess);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return Ok();
             }
             return BadRequest("User validation error.");
@@ -135,11 +143,11 @@ namespace WebServer.Controllers
 
             if (processTask == null)
             {
-                return NotFound(); // Return a 404 Not Found response if the task with the specified ID is not found.
+                return NotFound();
             }
 
             _context.ProcessTasks.Remove(processTask);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return NoContent(); // Return a 204 No Content response to indicate successful deletion.
         }
