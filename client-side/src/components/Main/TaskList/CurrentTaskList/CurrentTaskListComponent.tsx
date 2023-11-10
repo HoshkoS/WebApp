@@ -6,13 +6,13 @@ import axios from "axios";
 import { Task, tokenConfig } from "../../../typeDefinition";
 import TaskList from "../taskListComponent";
 import useInterval from "use-interval";
-import { URL } from "../../../../index";
+import { GeneralURL } from "../../../../index";
 
 export default function CurrentTaskList() {
   const [userTasks, setUserTasks] = useState<Task[] | undefined>();
   const [open, setOpen] = useState<boolean>(false);
   const setNotDoneTasks = async () => {
-    await axios.get<Task[]>(`${URL}/Task/?done=false`, tokenConfig)
+    await axios.get<Task[]>(`${GeneralURL}/Task/?done=false`, tokenConfig)
       .then(response => {
         setUserTasks(response.data);
         console.log(userTasks);

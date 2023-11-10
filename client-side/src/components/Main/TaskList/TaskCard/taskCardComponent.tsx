@@ -6,14 +6,14 @@ import "./taskCardComponentStyle.css";
 import TaskProgressBar from "../ProgressBar/progressBarComponent";
 import useInterval from "use-interval";
 
-import { URL } from "../../../../index";
+import { NginxURL, GeneralURL } from "../../../../index";
 
 export default function TaskCard(props: { task: Task }) {
     const [shortPool, setShortPool] = useState<boolean>(false);
     const [progressValue, setProgressValue] = useState<Task>();
 
     const HandleStart = (id: number) => {
-        axios.put(`${URL}/Task/`,{ taskId: id }, tokenConfig)
+        axios.put(`${NginxURL}/Task/`,{ taskId: id }, tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -21,7 +21,7 @@ export default function TaskCard(props: { task: Task }) {
     }
 
     const HandleStop = (id: number) => {
-        axios.patch(`${URL}/Task/StopTask/${id}`, { id: id } ,  tokenConfig)
+        axios.patch(`${NginxURL}/Task/StopTask/${id}`, { id: id } ,  tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -29,7 +29,7 @@ export default function TaskCard(props: { task: Task }) {
     }
 
     const HandleDelete = (id: number) => {
-        axios.delete(`${URL}/Task/${id}`,  tokenConfig)
+        axios.delete(`${GeneralURL}/Task/${id}`,  tokenConfig)
             .then(res => {
                 console.log(res.data);
             })
@@ -38,7 +38,7 @@ export default function TaskCard(props: { task: Task }) {
 
     const GetActiveProgress = async () => {
         try{
-            const response = await axios.get<Task>(`${URL}/Task/${props.task.id}`, tokenConfig);
+            const response = await axios.get<Task>(`${GeneralURL}/Task/${props.task.id}`, tokenConfig);
             const taskProgressData = response.data;
             console.log(taskProgressData)
             taskProgressData != undefined && taskProgressData.percentage != 100 ? setShortPool(true) : setShortPool(false);

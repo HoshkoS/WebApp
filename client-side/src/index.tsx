@@ -32,7 +32,8 @@ const router = createBrowserRouter([
   }
 ]);
 
-export const URL = "https://localhost:443";
+export const NginxURL = "https://localhost:443";
+export const GeneralURL = "https://localhost:7267";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
